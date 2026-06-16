@@ -3,8 +3,7 @@ const taskInput = document.querySelector("#task");
 const btnAdd = document.querySelector("#btn-add");
 const taskList = document.querySelector("#taskList");
 
-// Event listener — quando o botão é clicado, adiciona a tarefa
-btnAdd.addEventListener("click", async function () {
+async function addTask() {
   const taskName = taskInput.value;
   const res = await fetch("http://localhost:3000/tasks", {
     method: "POST",
@@ -14,10 +13,13 @@ btnAdd.addEventListener("click", async function () {
   const newTask = await res.json();
   renderTask(newTask);
   taskInput.value = "";
-});
+}
+btnAdd.addEventListener("click", addTask);
+
+// Event listener — quando o botão é clicado, adiciona a tarefa
 taskInput.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
-    btnAdd.click();
+    addTask();
   }
 });
 
